@@ -12,13 +12,13 @@ public final class Constants {
     public static final int TICK_DELAY = 25;
 
     // Player constants
-    public static final String PLAYER_IMAGE_PATH = "resources/amogus.png";
-    public static final int PLAYER_WIDTH = 60;
-    public static final int PLAYER_HEIGHT = 80;
-    public static final int PLAYER_SPEED = 10;
+    public static final String BALL_IMAGE_PATH = "resources/Pong-Ball.jpg";
+    public static final int BALL_WIDTH = 50;
+    public static final int BALL_HEIGHT = 50;
+    public static final int BALL_SPEED = 3;
 
     // Wall constants
-    public static final String WALL_IMAGE_PATH = "resources/wall.png";
-    public static final int WALL_WIDTH = 150;
-    public static final int WALL_HEIGHT = 150;
+    public static final String WALL_IMAGE_PATH = "resources/wall.PNG";
+    public static final int WALL_WIDTH = 640;
+    public static final int WALL_HEIGHT = 10;
 }

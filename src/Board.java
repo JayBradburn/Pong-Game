@@ -13,18 +13,18 @@ import static utils.Constants.*;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
 
-    private final Player player;
+    private final Ball ball;
     private final List<Sprite> sprites;
     private final Set<Integer> activeKeyCodes;
 
     public Board() {
         setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
-        setBackground(Color.GRAY);
+        setBackground(Color.BLACK);
 
-        player = new Player();
-        Wall wall = new Wall(BOARD_WIDTH / 2 - WALL_WIDTH / 2,
-                BOARD_HEIGHT / 2 - WALL_WIDTH / 2);
-        sprites = new ArrayList<>(List.of(player, wall));
+        ball = new Ball();
+        Wall wall1 = new Wall(0, 470);
+        Wall wall2 = new Wall(0, 100);
+        sprites = new ArrayList<>(List.of(ball, wall1, wall2));
 
         activeKeyCodes = new HashSet<>();
 
@@ -33,15 +33,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        player.handleActiveKeys(activeKeyCodes);
-
         for(Sprite sprite : sprites) {
             sprite.tick();
         }
 
         for(Sprite sprite : sprites) {
-            if(player.isColliding(sprite)) {
-                player.handleCollision(sprite);
+            if(ball.isColliding(sprite)) {
+                ball.handleCollision(sprite);
             }
         }
 
