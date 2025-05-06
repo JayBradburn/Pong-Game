@@ -24,7 +24,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         ball = new Ball();
         Wall wall1 = new Wall(0, 470);
         Wall wall2 = new Wall(0, 100);
-        sprites = new ArrayList<>(List.of(ball, wall1, wall2));
+        Paddle paddle1 = new Paddle(0, (BOARD_HEIGHT / 2) + 55 - PADDLE_HEIGHT);
+        Paddle paddle2 = new Paddle(630, (BOARD_HEIGHT / 2) + 55 - PADDLE_HEIGHT);
+        sprites = new ArrayList<>(List.of(ball, wall1, wall2, paddle1, paddle2));
 
         activeKeyCodes = new HashSet<>();
 

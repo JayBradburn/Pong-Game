@@ -11,11 +11,17 @@ public final class Constants {
     // A delay of 25 milliseconds results in a frame rate of 45 FPS.
     public static final int TICK_DELAY = 25;
 
-    // Player constants
+    // Ball constants
     public static final String BALL_IMAGE_PATH = "resources/Pong-Ball.jpg";
     public static final int BALL_WIDTH = 50;
     public static final int BALL_HEIGHT = 50;
     public static final int BALL_SPEED = 3;
+
+    // Ball constants
+    public static final String PADDLE_IMAGE_PATH = "resources/Paddle.PNG";
+    public static final int PADDLE_WIDTH = 10;
+    public static final int PADDLE_HEIGHT = 100;
+    public static final int PADDLE_SPEED = 3;
 
     // Wall constants
     public static final String WALL_IMAGE_PATH = "resources/wall.PNG";
