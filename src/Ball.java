@@ -47,7 +47,7 @@ public class Ball extends Sprite {
         pos.y = Math.clamp(pos.y, 0, BOARD_HEIGHT - BALL_HEIGHT);
     }
     public void handleCollision(Sprite other) {
-        if(other.getClass().equals(Wall.class)) {
+        if(other.getClass().equals(Wall.class) || other.getClass().equals(Paddle.class))  {
             Point previousPos = new Point(pos.x - (int)vx, pos.y - (int)vy);
 
             if(vx > 0 && previousPos.x + size.width <= other.getTopLeft().x) {

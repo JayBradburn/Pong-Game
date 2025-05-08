@@ -17,7 +17,7 @@ public final class Constants {
     public static final int BALL_HEIGHT = 50;
     public static final int BALL_SPEED = 3;
 
-    // Ball constants
+    // Paddle constants
     public static final String PADDLE_IMAGE_PATH = "resources/Paddle.PNG";
     public static final int PADDLE_WIDTH = 10;
     public static final int PADDLE_HEIGHT = 100;

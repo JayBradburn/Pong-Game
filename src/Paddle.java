@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Set;
 
@@ -14,18 +16,43 @@ public class Paddle extends Sprite {
     public void tick() {
         pos.translate((int)dx, (int)dy);
 
-        pos.x = Math.clamp(pos.x, 0, BOARD_WIDTH - BALL_WIDTH);
-        pos.y = Math.clamp(pos.y, 0, BOARD_HEIGHT - BALL_HEIGHT);
     }
-    public void handleActiveKeys(Set<Integer> activeKeyCodes) {
+    public void handleActiveKeys(String paddle, Set<Integer> activeKeyCodes) {
         dx = 0;
         dy = 0;
-
-        if (activeKeyCodes.contains(KeyEvent.VK_UP)) {
-            dy -= PADDLE_SPEED;
+        if (paddle.equals("p1")) {
+            if (activeKeyCodes.contains(KeyEvent.VK_W)) {
+                dy -= PADDLE_SPEED;
+            }
+            if (activeKeyCodes.contains(KeyEvent.VK_S)) {
+                dy += PADDLE_SPEED;
+            }
+        } else if (paddle.equals("p2")) {
+            if (activeKeyCodes.contains(KeyEvent.VK_UP)) {
+                dy -= PADDLE_SPEED;
+            }
+            if (activeKeyCodes.contains(KeyEvent.VK_DOWN)) {
+                dy += PADDLE_SPEED;
+            }
         }
-        if (activeKeyCodes.contains(KeyEvent.VK_DOWN)) {
-            dy += PADDLE_SPEED;
+    }
+    public void handleCollision(Sprite other) {
+        if(other.getClass().equals(Wall.class)) {
+            Point previousPos = new Point(pos.x - (int)dx, pos.y - (int)dy);
+
+            if(dx > 0 && previousPos.x + size.width <= other.getTopLeft().x) {
+                pos.x = other.getTopLeft().x - size.width;
+            }
+            else if(dx < 0 && previousPos.x >= other.getBottomRight().x) {
+                pos.x = other.getBottomRight().x;
+            }
+
+            if(dy > 0 && previousPos.y + size.height <= other.getTopLeft().y) {
+                pos.y = other.getTopLeft().y - size.height;
+            }
+            else if(dy < 0 && previousPos.y >= other.getBottomRight().y) {
+                pos.y = other.getBottomRight().y;
+            }
         }
     }
 }
