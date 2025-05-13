@@ -12,10 +12,12 @@ import java.util.Set;
 import static utils.Constants.*;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
-
+    private int p1Score;
+    private int p2Score;
+    private int rally;
     private final Ball ball;
-    private final Wall wall1;
-    private final Wall wall2;
+    private final Wall leftWall;
+    private final Wall rightWall;
     private final Paddle paddle1;
     private final Paddle paddle2;
     private final Barrier barrier1;
@@ -26,15 +28,17 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     public Board() {
         setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
         setBackground(Color.BLACK);
-
+        p1Score = 0;
+        p2Score = 0;
+        rally = 0;
         ball = new Ball();
-        wall1 = new Wall(0, 470);
-        wall2 = new Wall(0, 100);
+        leftWall = new Wall(0, 470);
+        rightWall = new Wall(0, 100);
         paddle1 = new Paddle(3, (BOARD_HEIGHT / 2) + 55 - BALL_HEIGHT);
         paddle2 = new Paddle(627, (BOARD_HEIGHT / 2) + 55 - BALL_HEIGHT);
         barrier1 = new Barrier(0, 110);
         barrier2 = new Barrier(637, 110);
-        sprites = new ArrayList<>(List.of(ball, wall1, wall2, paddle1, paddle2, barrier1, barrier2));
+        sprites = new ArrayList<>(List.of(ball,leftWall, rightWall, paddle1, paddle2, barrier1, barrier2));
 
         activeKeyCodes = new HashSet<>();
 
@@ -52,32 +56,34 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
 
         if(ball.isColliding(paddle1)) {
+            rally = rally + 1;
             ball.handlePaddleCollision("p1");
         }
         if(ball.isColliding(paddle2)) {
+            rally = rally + 1;
             ball.handlePaddleCollision("p2");
         }
-        if (ball.isColliding(wall1) || ball.isColliding(wall2)) {
+        if (ball.isColliding(leftWall) || ball.isColliding(rightWall)) {
             ball.handleWallCollision();
         }
         if (ball.isColliding(barrier1)) {
-            // increase player 2 score
+            p2Score = p2Score + 1;
             ball.handleBarrierCollision();
         } else if (ball.isColliding(barrier2)) {
-            // increase player 1 score
+            p1Score = p1Score + 1;
             ball.handleBarrierCollision();
         }
 
-        if(paddle1.isColliding(wall1)) {
-            paddle1.handleCollision(wall1);
-        } else if (paddle1.isColliding(wall2)) {
-            paddle1.handleCollision(wall2);
+        if(paddle1.isColliding(leftWall)) {
+            paddle1.handleCollision(leftWall);
+        } else if (paddle1.isColliding(rightWall)) {
+            paddle1.handleCollision(rightWall);
         }
 
-        if(paddle2.isColliding(wall1)) {
-            paddle2.handleCollision(wall1);
-        } else if (paddle2.isColliding(wall2)) {
-            paddle2.handleCollision(wall2);
+        if(paddle2.isColliding(leftWall)) {
+            paddle2.handleCollision(leftWall);
+        } else if (paddle2.isColliding(rightWall)) {
+            paddle2.handleCollision(rightWall);
         }
 
         repaint();
@@ -86,9 +92,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-
-        graphics.drawString("Test text", 10, 10);
-
+        graphics.setFont(new Font("Verdana", Font.PLAIN, 24));
+        graphics.setColor(Color.WHITE);
+        graphics.drawString("P1", 100, 25);
+        graphics.drawString("P2",515 , 25);
+        graphics.drawString("Rally", 300, 25);
+        graphics.drawString(String.valueOf(p1Score), 100, 75);
+        graphics.drawString(String.valueOf(p2Score),515 , 75);
+        graphics.drawString(String.valueOf(rally), 300, 75);
         for(Sprite sprite : sprites) {
             sprite.draw(graphics, this);
         }
