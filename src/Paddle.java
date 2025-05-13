@@ -42,6 +42,7 @@ public class Paddle extends Sprite {
 
             if(dx > 0 && previousPos.x + size.width <= other.getTopLeft().x) {
                 pos.x = other.getTopLeft().x - size.width;
+
             }
             else if(dx < 0 && previousPos.x >= other.getBottomRight().x) {
                 pos.x = other.getBottomRight().x;

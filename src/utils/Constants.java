@@ -27,4 +27,9 @@ public final class Constants {
     public static final String WALL_IMAGE_PATH = "resources/wall.PNG";
     public static final int WALL_WIDTH = 640;
     public static final int WALL_HEIGHT = 10;
+
+    // Barrier constants
+    public static final String BARRIER_IMAGE_PATH = "resources/Barrier.PNG";
+    public static final int BARRIER_WIDTH = 3;
+    public static final int BARRIER_HEIGHT = 360;
 }

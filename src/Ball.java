@@ -18,7 +18,7 @@ public class Ball extends Sprite {
         pos.y = (BOARD_HEIGHT / 2) + 55 - BALL_HEIGHT;
         vx = BALL_SPEED;
         vy = BALL_SPEED;
-        int randomNum = (int)(Math.random() * 4);
+        int randomNum = (int) (Math.random() * 4);
         if (randomNum == 0) {
             vx = vx * 1;
             vy = vy * 1;
@@ -41,28 +41,18 @@ public class Ball extends Sprite {
     public void tick() {
         // Move the ball based on vx and vy
         // Look at Player.java for inspiration
-        pos.translate((int)vx, (int)vy);
+        pos.translate((int) vx, (int) vy);
 
         pos.x = Math.clamp(pos.x, 0, BOARD_WIDTH - BALL_WIDTH);
         pos.y = Math.clamp(pos.y, 0, BOARD_HEIGHT - BALL_HEIGHT);
     }
+
     public void handleCollision(Sprite other) {
-        if(other.getClass().equals(Wall.class) || other.getClass().equals(Paddle.class))  {
-            Point previousPos = new Point(pos.x - (int)vx, pos.y - (int)vy);
-
-            if(vx > 0 && previousPos.x + size.width <= other.getTopLeft().x) {
-                pos.x = other.getTopLeft().x - size.width;
-            }
-            else if(vx < 0 && previousPos.x >= other.getBottomRight().x) {
-                pos.x = other.getBottomRight().x;
-            }
-
-            if(vy > 0 && previousPos.y + size.height <= other.getTopLeft().y) {
-                pos.y = other.getTopLeft().y - size.height;
-            }
-            else if(vy < 0 && previousPos.y >= other.getBottomRight().y) {
-                pos.y = other.getBottomRight().y;
-            }
+        if (other.getClass().equals(Wall.class)) {
+            vy = vy * -1;
+        } else if (other.getClass().equals(Paddle.class)) {
+            vx = vx * -1;
+            vx = vx * 1.05;
         }
     }
 }
