@@ -11,10 +11,5 @@ public class Barrier extends Sprite {
     public void tick() {
         // Unused
     }
-    public void handleCollision(Sprite other) {
-        if(other.getClass().equals(Ball.class)) {
-            System.exit(0);
-        }
-    }
 }
 

@@ -47,12 +47,21 @@ public class Ball extends Sprite {
         pos.y = Math.clamp(pos.y, 0, BOARD_HEIGHT - BALL_HEIGHT);
     }
 
-    public void handleCollision(Sprite other) {
-        if (other.getClass().equals(Wall.class)) {
-            vy = vy * -1;
-        } else if (other.getClass().equals(Paddle.class)) {
-            vx = vx * -1;
+    public void handleWallCollision() {
+        vy = vy * -1;
+    }
+
+    public void handlePaddleCollision(String paddle) {
+        if (paddle.equals("p1")) {
+            vx = Math.abs(vx);
+            vx = vx * 1.05;
+        }else if (paddle.equals("p2")) {
+            vx = -Math.abs(vx);
             vx = vx * 1.05;
         }
+    }
+
+    public void handleBarrierCollision() {
+        reset();
     }
 }
