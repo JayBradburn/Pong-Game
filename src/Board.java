@@ -24,6 +24,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private final Barrier barrier2;
     private final List<Sprite> sprites;
     private final Set<Integer> activeKeyCodes;
+    private List<Integer> rallies = new ArrayList<Integer>();
 
     public Board() {
         setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
@@ -31,6 +32,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         p1Score = 0;
         p2Score = 0;
         rally = 0;
+        rallies.add(0);
         ball = new Ball();
         leftWall = new Wall(0, 470);
         rightWall = new Wall(0, 100);
@@ -68,10 +70,22 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         }
         if (ball.isColliding(barrier1)) {
             p2Score = p2Score + 1;
+            rallies.add(rally);
+            rallies.sort( (a, b) -> { return -1 * a.compareTo(b); } );
+            rally = 0;
             ball.handleBarrierCollision();
+            if (p2Score == 17){
+                ball.stopGame();
+            }
         } else if (ball.isColliding(barrier2)) {
             p1Score = p1Score + 1;
+            rallies.add(rally);
+            rallies.sort( (a, b) -> { return -1 * a.compareTo(b); } );
+            rally = 0;
             ball.handleBarrierCollision();
+            if (p1Score == 17){
+                ball.stopGame();
+            }
         }
 
         if(paddle1.isColliding(leftWall)) {
@@ -96,10 +110,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         graphics.setColor(Color.WHITE);
         graphics.drawString("P1", 100, 25);
         graphics.drawString("P2",515 , 25);
-        graphics.drawString("Rally", 300, 25);
-        graphics.drawString(String.valueOf(p1Score), 100, 75);
-        graphics.drawString(String.valueOf(p2Score),515 , 75);
-        graphics.drawString(String.valueOf(rally), 300, 75);
+        graphics.drawString("Rally", 285, 25);
+        graphics.drawString("Top Rally: " + rallies.getFirst(), 245, 90);
+        graphics.drawString(String.valueOf(p1Score), 105, 75);
+        graphics.drawString(String.valueOf(p2Score),520 , 75);
+        graphics.drawString(String.valueOf(rally), 305, 60);
         for(Sprite sprite : sprites) {
             sprite.draw(graphics, this);
         }
@@ -118,5 +133,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         activeKeyCodes.remove(keyEvent.getKeyCode());
+    }
+
+    public void gameOver(String player){
+
     }
 }

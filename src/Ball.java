@@ -64,4 +64,10 @@ public class Ball extends Sprite {
     public void handleBarrierCollision() {
         reset();
     }
+
+    public void stopGame(){
+        vx = 0;
+        vy = 0;
+    }
+
 }
