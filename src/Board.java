@@ -74,7 +74,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             rallies.sort( (a, b) -> { return -1 * a.compareTo(b); } );
             rally = 0;
             ball.handleBarrierCollision();
-            if (p2Score == 17){
+            if (p2Score == 11){
                 ball.stopGame();
             }
         } else if (ball.isColliding(barrier2)) {
@@ -83,7 +83,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             rallies.sort( (a, b) -> { return -1 * a.compareTo(b); } );
             rally = 0;
             ball.handleBarrierCollision();
-            if (p1Score == 17){
+            if (p1Score == 11){
                 ball.stopGame();
             }
         }
@@ -115,6 +115,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         graphics.drawString(String.valueOf(p1Score), 105, 75);
         graphics.drawString(String.valueOf(p2Score),520 , 75);
         graphics.drawString(String.valueOf(rally), 305, 60);
+        if (p1Score == 11){
+            graphics.drawString(("Player one wins!"), 215, 200);
+        }
+        if (p2Score == 11){
+            graphics.drawString(("Player two wins!"), 215, 200);
+        }
         for(Sprite sprite : sprites) {
             sprite.draw(graphics, this);
         }
@@ -135,7 +141,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         activeKeyCodes.remove(keyEvent.getKeyCode());
     }
 
-    public void gameOver(String player){
 
-    }
+
+
 }
